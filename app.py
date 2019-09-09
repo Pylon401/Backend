@@ -73,7 +73,9 @@ async def main(request):
     async with ClientSession() as session:
         for url in urls:
             task = asyncio.ensure_future(normalize(session, url['url'], url['type']))
-            task.append(task)
+            tasks.append(task)
+            breakpoint()
+        
         
         responses = await asyncio.gather(*tasks)
         print(responses)
