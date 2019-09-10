@@ -112,16 +112,16 @@ async def normalize_reddit_python(session, url, category):
         normalized_entries.append({
             'source': 'reddit',
             'category': category,
-            # 'title': entry['data'].get('title', None),
-            # 'link': entry['data'].get('permalink', None),
-            # 'thumbnail': entry['data']['secure_media'].get('thumbnail_url', None),
+            'title': entry['data'].get('title', None),
+            'link': entry['data'].get('permalink', None),
+            'thumbnail': entry['data'].get('thumbnail', None),
         })
 
     return normalized_entries
 
-# async def normalize_reddit_pythoncoding(session, url, category):
+# async def normalize_reddit_learnprogramming(session, url, category):
 #     """
-#     Takes in a ClientSession and a URL string to Python Coding Subreddit..
+#     Takes in a ClientSession and a URL string to Learn Programming Subreddit..
 #     Awaits a fetch coroutine, then normalizes the payload.
 #     Returns the normalized entries.
 #     """
@@ -190,13 +190,12 @@ async def main(request):
         entries.append(normalize_pypi(session, 'https://pypi.org/rss/updates.xml', 'updated'))
         entries.append(normalize_pypi(session, 'https://pypi.org/rss/packages.xml', 'newest'))
         entries.append(normalize_reddit_webdev(session, 'https://www.reddit.com/r/webdev/top/.json?', 'webdev'))
+        entries.append(normalize_reddit_python(session, 'https://www.reddit.com/r/python/top/.json?', 'python'))
+       
+        # entries.append(normalize_reddit_learnprogramming(session, 'https://www.reddit.com/r/learnprogramming/top/.json?', 'learnprogramming'))
+                        
+        # entries.append(normalize_reddit_programming_humor(session, 'https://www.reddit.com/r/programminghumor/top/.json?', 'programminghumor'))
 
-        # entries.append(normalize_reddit_python(session, 'https://www.reddit.com/r/python/top/', 'python'))
-                
-        # entries.append(normalize_reddit_pythoncoding(session, 'https://www.reddit.com/r/pythoncoding/top/', 'pythoncoding'))
-
-        # entries.append(normalize_reddit_programming_humor(session, 'https://www.reddit.com/r/programminghumor/top/', 'programminghumor'))
-        # entries.append(normalize_reddit_learnprogramming(session, 'https://www.reddit.com/r/learnprogramming/top/', 'learnprogramming'))
 
         results = await asyncio.gather(*entries)
 
