@@ -3,20 +3,29 @@ import feedparser
 
 import asyncio
 import json
+import time
 
-# URLS
-# https://pypi.org/rss/updates.xml
-# https://pypi.org/rss/packages.xml
-# https://api.github.com/search/repositories?q=language:python&sort=stars&order=desc
-# https://api.github.com/search/repositories?q=language:python&sort=updated&order=desc
 
-# The FETCH Level
+# Allows use of the @routes decorator
+routes = web.RouteTableDef()
+
+
 async def fetch(session, url):
+    """
+    Takes in a ClientSession and a URL string.
+    Awaits a request to the given URL.
+    Returns the payload.
+    """
     async with session.get(url) as response:
         return await response.text()
 
-# The NORMALIZE Level
-async def normalize_pypi(session, url):
+
+async def normalize_pypi(session, url, category):
+    """
+    Takes in a ClientSession and a URL string to PyPI.
+    Awaits a fetch coroutine, then normalizes the payload.
+    Returns the normalized entries.
+    """
     print('url start', url)
     feed_data = feedparser.parse(await fetch(session, url))
     print('url done', url)
@@ -25,6 +34,7 @@ async def normalize_pypi(session, url):
     for entry in entries:
         normalized_entries.append({
             'source': 'pypi',
+            'category': category,
             'title': entry['title'],
             'link': entry['link'],
             'desc': entry['summary']
@@ -32,46 +42,59 @@ async def normalize_pypi(session, url):
 
     return normalized_entries
 
-async def normalize_github(session, url):
+
+async def normalize_github(session, url, category):
+    """
+    Takes in a ClientSession and a URL string to GitHub.
+    Awaits a fetch coroutine, then normalizes the payload.
+    Returns the normalized entries.
+    """
     print('url start', url)
     response = json.loads(await fetch(session, url))
     print('url done', url)
+    entries = response['items']
     normalized_entries = []
 
-    # TODO: Turn response into json before parsing.
-
-    for entry in response:
-        normalized_entries.append({'foo':'bar'})
-        # normalized_entries.append({
-        #     'source': 'github',
-        #     'title': entry['name'],
-        #     'link': entry['html_url'],
-        #     'desc': entry['description'],
-        #     'stars': entry['stargazers_count']
-        # })
+    for entry in entries:
+        normalized_entries.append({
+            'source': 'github',
+            'category': category,
+            'title': entry['name'],
+            'link': entry['html_url'],
+            'desc': entry['description'],
+            'stars': entry['stargazers_count']
+        })
 
     return normalized_entries
 
 
-# The GATHER Level
+@routes.get('/')
 async def main(request):
+    """
+    Takes in a Request object from the client.
+    Creates a ClientSession and coroutines for each API.
+    Awaits the normalized entries from the gathered coroutines.
+    Returns all of the normalized entries.
+    """
+    start_time = time.perf_counter()
     entries = []
     async with ClientSession() as session:
-        entries.append(normalize_github(session, 'https://api.github.com/search/repositories?q=language:python&sort=stars&order=desc'))
-        entries.append(normalize_pypi(session, 'https://pypi.org/rss/updates.xml'))
-        entries.append(normalize_pypi(session, 'https://pypi.org/rss/packages.xml'))
-        entries.append(normalize_github(session, 'https://api.github.com/search/repositories?q=language:python&sort=updated&order=desc'))
+        entries.append(normalize_github(session, 'https://api.github.com/search/repositories?q=language:python&sort=stars&order=desc', 'popular'))
+        entries.append(normalize_github(session, 'https://api.github.com/search/repositories?q=language:python&sort=updated&order=desc', 'updated'))
+        entries.append(normalize_pypi(session, 'https://pypi.org/rss/updates.xml', 'updated'))
+        entries.append(normalize_pypi(session, 'https://pypi.org/rss/packages.xml', 'newest'))
 
         results = await asyncio.gather(*entries)
 
-
+    elapsed_time = time.perf_counter() - start_time
+    print(f'Elapsed time: {elapsed_time:0.2f}')
     return web.Response(text=json.dumps(results))
 
-# The RUN Level
+
+# Instantiates an app and adds our routes
 app = web.Application()
-app.add_routes([
-    web.get('/', main),
-])
+app.router.add_routes(routes)
+
 
 if __name__ == '__main__':
     web.run_app(app)
