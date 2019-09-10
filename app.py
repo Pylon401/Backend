@@ -102,6 +102,8 @@ async def normalize_reddit_python(session, url, category):
     response = json.loads(await fetch(session, url))
     print('url done', url)
 
+    print('response:', response)
+
     entries = response['data']['children']
     normalized_entries = []
 
@@ -117,7 +119,6 @@ async def normalize_reddit_python(session, url, category):
     return normalized_entries
 
 
-### CURRENTLY WORKING ON THIS ###
 async def normalize_reddit_learnprogramming(session, url, category):
     """
     Takes in a ClientSession and a URL string to Learn Programming Subreddit..
@@ -137,37 +138,41 @@ async def normalize_reddit_learnprogramming(session, url, category):
             'category': category,
             'title': entry['data'].get('title', None),
             'link': entry['data'].get('permalink', None),
-            'thumbnail': entry['data'].get('thumbnail', None),
+            # 'thumbnail': entry['data'].get('thumbnail', None),
         })
 
     return normalized_entries
 
 
-# async def normalize_reddit_programminghumor(session, url, category):
-#     """
-#     Takes in a ClientSession and a URL string to Programming Humor Subreddit.
-#     Awaits a fetch coroutine, then normalizes the payload.
-#     Returns the normalized entries.
-#     """
-#     print('url start', url)
-#     response = json.loads(await fetch(session, url))
-#     print('url done', url)
+### CURRENTLY WORKING ON THIS ###
+async def normalize_reddit_programminghumor(session, url, category):
+    """
+    Takes in a ClientSession and a URL string to Programming Humor Subreddit.
+    Awaits a fetch coroutine, then normalizes the payload.
+    Returns the normalized entries.
+    """
+    print('url start', url)
+    response = json.loads(await fetch(session, url))
+    print('url done', url)
 
-#     print('response:', response)
+    print('response:', response)
 
-#     entries = response['data']['children']
-#     normalized_entries = []
+    entries = response['data']['children']
+    normalized_entries = []
 
-#     for entry in entries:
-#         normalized_entries.append({
-#             'source': 'reddit',
-#             'category': category,
-#             'title': entry['data'].get('title', None),
-#             'link': entry['data'].get('permalink', None),
-#             'thumbnail': entry['data'].get('thumbnail', None),
-#         })
+    for entry in entries:
+        normalized_entries.append({
+            'source': 'reddit',
+            'category': category,
+            'title': entry['data'].get('title', None),
+            'link': entry['data'].get('permalink', None),
 
-#     return normalized_entries
+            # 'thumbnail': entry['data'].get('secure_media', None).get('oembed', None),
+            # ['secure_media']['oembed'],
+            # 'thumbnail': entry['data']['media']['oembed'].get('thumbnail_url', None),
+        })
+
+    return normalized_entries
 
 
 @routes.get('/')
@@ -188,11 +193,8 @@ async def main(request):
         entries.append(normalize_pypi(session, 'https://pypi.org/rss/packages.xml', 'newest'))
         entries.append(normalize_reddit_webdev(session, 'https://www.reddit.com/r/webdev/top/.json?', 'webdev'))
         entries.append(normalize_reddit_python(session, 'https://www.reddit.com/r/python/top/.json?', 'python'))
-       
-        entries.append(normalize_reddit_learnprogramming(session, 'https://www.reddit.com/r/learnprogramming/top/.json?', 'learnprogramming'))
-                        
-        # entries.append(normalize_reddit_programming_humor(session, 'https://www.reddit.com/r/programminghumor/top/.json?', 'programminghumor'))
-
+        entries.append(normalize_reddit_learnprogramming(session, 'https://www.reddit.com/r/learnprogramming/top/.json?', 'learnprogramming'))                        
+        entries.append(normalize_reddit_programminghumor(session, 'https://www.reddit.com/r/programminghumor/top/.json?', 'programminghumor'))
 
         results = await asyncio.gather(*entries)
 
