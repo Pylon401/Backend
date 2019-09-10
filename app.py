@@ -115,7 +115,7 @@ async def normalize_reddit_programmerhumor(session, url, category):
             'category': category,
             'title': entry['data'].get('title', None),
             'link': entry['data'].get('permalink', None),
-            'thumbnail': entry['data'].get('thumbnail', None),
+            'image': entry['data'].get('url', None),
         })
 
     return normalized_entries
