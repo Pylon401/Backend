@@ -93,6 +93,34 @@ async def normalize_reddit_webdev(session, url, category):
     return normalized_entries
 
 
+async def normalize_reddit_programmerhumor(session, url, category):
+    """
+    Takes in a ClientSession and a URL string to Programmer Humor Subreddit.
+    Awaits a fetch coroutine, then normalizes the payload.
+    Returns the normalized entries.
+    """
+    print('url start', url)
+    response = json.loads(await fetch(session, url))
+    print('url done', url)
+
+    print('response:', response)
+
+    entries = response['data']['children']
+    normalized_entries = []
+
+    for entry in entries:
+
+        normalized_entries.append({
+            'source': 'reddit',
+            'category': category,
+            'title': entry['data'].get('title', None),
+            'link': entry['data'].get('permalink', None),
+            'thumbnail': entry['data'].get('thumbnail', None),
+        })
+
+    return normalized_entries
+
+
 async def normalize_reddit_no_thumbnail(session, url, category):
     """
     Takes in a ClientSession and a URL string to Python Subreddit.
@@ -119,55 +147,6 @@ async def normalize_reddit_no_thumbnail(session, url, category):
     return normalized_entries
 
 
-async def normalize_reddit_programminghumor(session, url, category):
-    """
-    Takes in a ClientSession and a URL string to Programming Humor Subreddit.
-    Awaits a fetch coroutine, then normalizes the payload.
-    Returns the normalized entries.
-    """
-    print('url start', url)
-    response = json.loads(await fetch(session, url))
-    print('url done', url)
-
-    print('response:', response)
-
-    entries = response['data']['children']
-    normalized_entries = []
-
-    for entry in entries:
-
-        #thumbnail accessed either by secure_media > oembed or media > oembed
-        if entry['data']['secure_media']:
-            thumbnail_data = entry['data']['secure_media']['oembed'].get('thumbnail_url', None)
-            # print('***** thumbnail data secure_media:', thumbnail_data)
-
-            normalized_entries.append({
-                'source': 'reddit',
-                'category': category,
-                'title': entry['data'].get('title', None),
-                'link': entry['data'].get('permalink', None),
-                'thumbnail': thumbnail_data,
-            })
-
-        elif entry['data']['media']:
-            thumbnail_data = entry['data']['media']['oembed'].get('thumbnail_url', None)
-            # print('***** thumbnail_data only media: ', thumbnail_data)
-
-        else:
-            thumbnail_data = None
-
-        normalized_entries.append({
-            'source': 'reddit',
-            'category': category,
-            'title': entry['data'].get('title', None),
-            'link': entry['data'].get('permalink', None),
-            # Majority thumbnails return null. Some are defaults. 
-            'thumbnail': thumbnail_data,
-        })
-
-    return normalized_entries
-
-
 @routes.get('/')
 async def main(request):
     """
@@ -185,9 +164,9 @@ async def main(request):
         entries.append(normalize_pypi(session, 'https://pypi.org/rss/updates.xml', 'updated'))
         entries.append(normalize_pypi(session, 'https://pypi.org/rss/packages.xml', 'newest'))
         entries.append(normalize_reddit_webdev(session, 'https://www.reddit.com/r/webdev/.json?', 'webdev'))
+        entries.append(normalize_reddit_programmerhumor(session, 'https://www.reddit.com/r/programmerhumor/.json?', 'programmerhumor'))
         entries.append(normalize_reddit_no_thumbnail(session, 'https://www.reddit.com/r/python/.json?', 'python'))
-        entries.append(normalize_reddit_no_thumbnail(session, 'https://www.reddit.com/r/learnprogramming/.json?', 'learnprogramming'))                        
-        entries.append(normalize_reddit_programminghumor(session, 'https://www.reddit.com/r/programminghumor/.json?', 'programminghumor'))
+        entries.append(normalize_reddit_no_thumbnail(session, 'https://www.reddit.com/r/learnprogramming/.json?', 'learnprogramming'))
 
         results = await asyncio.gather(*entries)
 
