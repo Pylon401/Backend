@@ -30,11 +30,15 @@ async def normalize_pypi(session, url, category):
     feed_data = feedparser.parse(await fetch(session, url))
     print('url done', url)
     entries = feed_data.entries
-    normalized_entries = []
+
+    normalized_entries = {
+        'source': 'pypi',
+        'category': category,
+        'data':[]
+    }
+
     for entry in entries:
-        normalized_entries.append({
-            'source': 'pypi',
-            'category': category,
+        normalized_entries['data'].append({
             'title': entry['title'],
             'link': entry['link'],
             'desc': entry['summary']
@@ -53,12 +57,14 @@ async def normalize_github(session, url, category):
     response = json.loads(await fetch(session, url))
     print('url done', url)
     entries = response['items']
-    normalized_entries = []
+    normalized_entries = {
+        'source': 'github',
+        'category': category,
+        'data':[]
+    }
 
     for entry in entries:
-        normalized_entries.append({
-            'source': 'github',
-            'category': category,
+        normalized_entries['data'].append({
             'title': entry['name'],
             'link': entry['html_url'],
             'desc': entry['description'],
@@ -78,12 +84,14 @@ async def normalize_reddit_webdev(session, url, category):
     response = json.loads(await fetch(session, url))
     print('url done', url)
     entries = response['data']['children']
-    normalized_entries = []
+    normalized_entries = {
+        'source': 'reddit',
+        'category': category,
+        'data':[]
+    }
 
     for entry in entries:
-        normalized_entries.append({
-            'source': 'reddit',
-            'category': category,
+        normalized_entries['data'].append({
             'title': entry['data'].get('title', None),
             'link': entry['data'].get('permalink', None),
             #some results have thumbnail urls
@@ -104,13 +112,15 @@ async def normalize_reddit_programmerhumor(session, url, category):
     print('url done', url)
 
     entries = response['data']['children']
-    normalized_entries = []
+    normalized_entries = {
+        'source': 'reddit',
+        'category': category,
+        'data':[]
+    }
 
     for entry in entries:
 
-        normalized_entries.append({
-            'source': 'reddit',
-            'category': category,
+        normalized_entries['data'].append({
             'title': entry['data'].get('title', None),
             'link': entry['data'].get('permalink', None),
             'image': entry['data'].get('url', None),
@@ -119,7 +129,7 @@ async def normalize_reddit_programmerhumor(session, url, category):
     return normalized_entries
 
 
-async def normalize_reddit_no_thumbnail(session, url, category):
+async def normalize_reddit_no_image(session, url, category):
     """
     Takes in a ClientSession and a URL string to Python Subreddit.
     Awaits a fetch coroutine, then normalizes the payload.
@@ -130,12 +140,14 @@ async def normalize_reddit_no_thumbnail(session, url, category):
     print('url done', url)
 
     entries = response['data']['children']
-    normalized_entries = []
+    normalized_entries = {
+        'source': 'reddit',
+        'category': category,
+        'data':[]
+    }
 
     for entry in entries:
-        normalized_entries.append({
-            'source': 'reddit',
-            'category': category,
+        normalized_entries['data'].append({
             'title': entry['data'].get('title', None),
             'link': entry['data'].get('permalink', None),
         })
@@ -155,14 +167,14 @@ async def main(request):
     entries = []
     async with ClientSession() as session:
 
-        entries.append(normalize_github(session, 'https://api.github.com/search/repositories?q=language:python&sort=stars&order=desc', 'popular'))
-        entries.append(normalize_github(session, 'https://api.github.com/search/repositories?q=language:python&sort=updated&order=desc', 'updated'))
         entries.append(normalize_pypi(session, 'https://pypi.org/rss/updates.xml', 'updated'))
         entries.append(normalize_pypi(session, 'https://pypi.org/rss/packages.xml', 'newest'))
+        entries.append(normalize_github(session, 'https://api.github.com/search/repositories?q=language:python&sort=stars&order=desc', 'popular'))
+        entries.append(normalize_github(session, 'https://api.github.com/search/repositories?q=language:python&sort=updated&order=desc', 'updated'))
         entries.append(normalize_reddit_webdev(session, 'https://www.reddit.com/r/webdev/.json?', 'webdev'))
         entries.append(normalize_reddit_programmerhumor(session, 'https://www.reddit.com/r/programmerhumor/.json?', 'programmerhumor'))
-        entries.append(normalize_reddit_no_thumbnail(session, 'https://www.reddit.com/r/python/.json?', 'python'))
-        entries.append(normalize_reddit_no_thumbnail(session, 'https://www.reddit.com/r/learnprogramming/.json?', 'learnprogramming'))
+        entries.append(normalize_reddit_no_image(session, 'https://www.reddit.com/r/python/.json?', 'python'))
+        entries.append(normalize_reddit_no_image(session, 'https://www.reddit.com/r/learnprogramming/.json?', 'learnprogramming'))
 
         results = await asyncio.gather(*entries)
 
