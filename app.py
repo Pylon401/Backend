@@ -6,6 +6,10 @@ import json
 import time
 
 
+# Allows use of the @routes decorator
+routes = web.RouteTableDef()
+
+
 async def fetch(session, url):
     """
     Takes in a ClientSession and a URL string.
@@ -62,6 +66,7 @@ async def normalize_github(session, url):
     return normalized_entries
 
 
+@routes.get('/')
 async def main(request):
     """
     Takes in a Request object from the client.
@@ -84,10 +89,9 @@ async def main(request):
     return web.Response(text=json.dumps(results))
 
 
+# Instantiates an app and adds our routes
 app = web.Application()
-app.add_routes([
-    web.get('/', main),
-])
+app.router.add_routes(routes)
 
 
 if __name__ == '__main__':
