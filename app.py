@@ -103,8 +103,6 @@ async def normalize_reddit_programmerhumor(session, url, category):
     response = json.loads(await fetch(session, url))
     print('url done', url)
 
-    print('response:', response)
-
     entries = response['data']['children']
     normalized_entries = []
 
@@ -130,8 +128,6 @@ async def normalize_reddit_no_thumbnail(session, url, category):
     print('url start', url)
     response = json.loads(await fetch(session, url))
     print('url done', url)
-
-    print('response:', response)
 
     entries = response['data']['children']
     normalized_entries = []
@@ -178,7 +174,6 @@ async def main(request):
 # Instantiates an app and adds our routes
 app = web.Application()
 app.router.add_routes(routes)
-
 
 if __name__ == '__main__':
     web.run_app(app)
