@@ -17,7 +17,9 @@ async def fetch(session, url):
 
 # The NORMALIZE Level
 async def normalize_pypi(session, url):
+    print('url start', url)
     feed_data = feedparser.parse(await fetch(session, url))
+    print('url done', url)
     entries = feed_data.entries
     normalized_entries = []
     for entry in entries:
@@ -31,27 +33,39 @@ async def normalize_pypi(session, url):
     return normalized_entries
 
 async def normalize_github(session, url):
-    response = await fetch(session, url)
+    print('url start', url)
+    response = json.loads(await fetch(session, url))
+    print('url done', url)
     normalized_entries = []
+
+    # TODO: Turn response into json before parsing.
+
     for entry in response:
-        normalized_entries.append({
-            'source': 'github',
-            'title': entry['name'],
-            'link': entry['html_url'],
-            'desc': entry['description'],
-            'stars': entry['stargazers_count']
-        })
+        normalized_entries.append({'foo':'bar'})
+        # normalized_entries.append({
+        #     'source': 'github',
+        #     'title': entry['name'],
+        #     'link': entry['html_url'],
+        #     'desc': entry['description'],
+        #     'stars': entry['stargazers_count']
+        # })
 
     return normalized_entries
+
 
 # The GATHER Level
 async def main(request):
     entries = []
     async with ClientSession() as session:
-        entries.append(await normalize_pypi(session, 'https://pypi.org/rss/updates.xml'))
-        entries.append(await normalize_pypi(session, 'https://pypi.org/rss/packages.xml'))
+        entries.append(normalize_github(session, 'https://api.github.com/search/repositories?q=language:python&sort=stars&order=desc'))
+        entries.append(normalize_pypi(session, 'https://pypi.org/rss/updates.xml'))
+        entries.append(normalize_pypi(session, 'https://pypi.org/rss/packages.xml'))
+        entries.append(normalize_github(session, 'https://api.github.com/search/repositories?q=language:python&sort=updated&order=desc'))
 
-    return web.Response(text=json.dumps(entries))
+        results = await asyncio.gather(*entries)
+
+
+    return web.Response(text=json.dumps(results))
 
 # The RUN Level
 app = web.Application()
