@@ -20,7 +20,7 @@ async def fetch(session, url):
         return await response.text()
 
 
-async def normalize_pypi(session, url):
+async def normalize_pypi(session, url, category):
     """
     Takes in a ClientSession and a URL string to PyPI.
     Awaits a fetch coroutine, then normalizes the payload.
@@ -34,6 +34,7 @@ async def normalize_pypi(session, url):
     for entry in entries:
         normalized_entries.append({
             'source': 'pypi',
+            'category': category,
             'title': entry['title'],
             'link': entry['link'],
             'desc': entry['summary']
@@ -42,7 +43,7 @@ async def normalize_pypi(session, url):
     return normalized_entries
 
 
-async def normalize_github(session, url):
+async def normalize_github(session, url, category):
     """
     Takes in a ClientSession and a URL string to GitHub.
     Awaits a fetch coroutine, then normalizes the payload.
@@ -57,6 +58,7 @@ async def normalize_github(session, url):
     for entry in entries:
         normalized_entries.append({
             'source': 'github',
+            'category': category,
             'title': entry['name'],
             'link': entry['html_url'],
             'desc': entry['description'],
@@ -77,10 +79,10 @@ async def main(request):
     start_time = time.perf_counter()
     entries = []
     async with ClientSession() as session:
-        entries.append(normalize_github(session, 'https://api.github.com/search/repositories?q=language:python&sort=stars&order=desc'))
-        entries.append(normalize_github(session, 'https://api.github.com/search/repositories?q=language:python&sort=updated&order=desc'))
-        entries.append(normalize_pypi(session, 'https://pypi.org/rss/updates.xml'))
-        entries.append(normalize_pypi(session, 'https://pypi.org/rss/packages.xml'))
+        entries.append(normalize_github(session, 'https://api.github.com/search/repositories?q=language:python&sort=stars&order=desc', 'popular'))
+        entries.append(normalize_github(session, 'https://api.github.com/search/repositories?q=language:python&sort=updated&order=desc', 'updated'))
+        entries.append(normalize_pypi(session, 'https://pypi.org/rss/updates.xml', 'updated'))
+        entries.append(normalize_pypi(session, 'https://pypi.org/rss/packages.xml', 'newest'))
 
         results = await asyncio.gather(*entries)
 
