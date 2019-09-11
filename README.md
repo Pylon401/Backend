@@ -30,6 +30,6 @@ This back end server aggregates information from GitHub, PyPI, and Reddit for co
 09-10-2019 - 1.2.0
 - Added Reddit API integration
 
-09-10-2019 - 1.3.0
+09-11-2019 - 1.3.0
 - Deployed to [Heroku](https://pyn-terest.herokuapp.com/)
 - Added CORS functionality
