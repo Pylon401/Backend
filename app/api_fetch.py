@@ -180,7 +180,11 @@ async def get_github(request):
     
     elapsed_time = time.perf_counter() - start_time
     print(f'Elapsed time: {elapsed_time:0.2f}')
-    return web.Response(text=json.dumps(results))
+    return web.Response(
+        text=json.dumps(results),
+        headers={
+            "X-Custom-Server-Header": "Custom data",
+        })
 
 
 # ===
@@ -195,15 +199,24 @@ cors = aiohttp_cors.setup(app)
 
 resource = cors.add(app.router.add_resource("/"))
 
-route = cors.add(
-    resource.add_route("GET", get_github), {
-        "https://pynterest-58401.firebaseapp.com/": aiohttp_cors.ResourceOptions(
-            allow_credentials=True,
-            expose_headers=("X-Custom-Server-Header",),
-            allow_headers=("X-Requested-With", "Content-Type"),
-            max_age=3600,
-        )
-    }
-)
+cors.add(resource.add_route("GET", get_github), {
+    "*":
+        aiohttp_cors.ResourceOptions(allow_credentials=False),
+    "http://client.example.org":
+        aiohttp_cors.ResourceOptions(allow_credentials=True),
+})
+
+# route = cors.add(
+#     resource.add_route("GET", get_github), {
+#         "https://pynterest-58401.firebaseapp.com/": aiohttp_cors.ResourceOptions(
+#             allow_credentials=True,
+#             expose_headers=("X-Custom-Server-Header",),
+#             allow_headers=("X-Requested-With", "Content-Type"),
+#             max_age=3600,
+#         )
+#     }
+# )
+
+
 
 # app.add_routes(routes)
