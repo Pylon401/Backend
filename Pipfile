@@ -10,6 +10,7 @@ feedparser = "*"
 Flask-Cors = "*"
 aiohttp-cors = "*"
 hypercorn = "*"
+uvloop = "*"
 
 [dev-packages]
 
