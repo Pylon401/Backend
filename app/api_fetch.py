@@ -121,7 +121,13 @@ async def normalize_pypi(session, url, category):
     feed_data = feedparser.parse(await fetch(session, url))
     print('url done', url)
     entries = feed_data.entries
-    normalized_entries = []
+
+    normalized_entries = {
+        'source': 'pypi',
+        'category': category,
+        'data':[]
+    }
+
     for entry in entries:
         normalized_entries.append({
             'source': 'pypi',
@@ -144,7 +150,12 @@ async def normalize_github(session, url, category):
     response = json.loads(await fetch(session, url))
     print('url done', url)
     entries = response['items']
-    normalized_entries = []
+    
+    normalized_entries = {
+        'source': 'github',
+        'category': category,
+        'data':[]
+    }
 
     for entry in entries:
         normalized_entries.append({
