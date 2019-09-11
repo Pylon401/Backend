@@ -203,6 +203,7 @@ async def get_github(request):
 # ===
 # APP
 # ===
+
 app = web.Application()
 
 cors = aiohttp_cors.setup(app)
