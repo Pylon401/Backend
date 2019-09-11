@@ -129,7 +129,7 @@ async def normalize_pypi(session, url, category):
     }
 
     for entry in entries:
-        normalized_entries.append({
+        normalized_entries['data'].append({
             'source': 'pypi',
             'category': category,
             'title': entry['title'],
@@ -158,7 +158,7 @@ async def normalize_github(session, url, category):
     }
 
     for entry in entries:
-        normalized_entries.append({
+        normalized_entries['data'].append({
             'source': 'github',
             'category': category,
             'title': entry['name'],
