@@ -1,12 +1,11 @@
 from aiohttp import web, ClientSession
+import aiohttp_cors
 import feedparser
 
 import asyncio
 import time
 import json
-import os
 
-import aiohttp_cors
 
 __all__ = ["app"]
 
@@ -25,9 +24,11 @@ async def fetch(session, url):
     async with session.get(url) as response:
         return await response.text()
 
+
 # ===========
 # NORMALIZERS
 # ===========
+
 async def normalize_reddit_webdev(session, url, category):
     """
     Takes in a ClientSession and a URL string to WebDev Subreddit.
@@ -48,7 +49,6 @@ async def normalize_reddit_webdev(session, url, category):
         normalized_entries['data'].append({
             'title': entry['data'].get('title', None),
             'link': entry['data'].get('permalink', None),
-            #some results have thumbnail urls
             'thumbnail': entry['data'].get('thumbnail', None),
         })
 
@@ -172,7 +172,6 @@ async def normalize_github(session, url, category):
 # ROUTES
 # ======
 
-# @routes.get('/')
 async def get_github(request):
     start_time = time.perf_counter()
     entries = []
@@ -203,9 +202,6 @@ async def get_github(request):
 # ===
 app = web.Application()
 
-# ===
-# AIOHTTP INTEGRATION
-# ===
 cors = aiohttp_cors.setup(app)
 
 resource = cors.add(app.router.add_resource("/"))
@@ -216,18 +212,3 @@ cors.add(resource.add_route("GET", get_github), {
     "http://client.example.org":
         aiohttp_cors.ResourceOptions(allow_credentials=True),
 })
-
-# route = cors.add(
-#     resource.add_route("GET", get_github), {
-#         "https://pynterest-58401.firebaseapp.com/": aiohttp_cors.ResourceOptions(
-#             allow_credentials=True,
-#             expose_headers=("X-Custom-Server-Header",),
-#             allow_headers=("X-Requested-With", "Content-Type"),
-#             max_age=3600,
-#         )
-#     }
-# )
-
-
-
-# app.add_routes(routes)
