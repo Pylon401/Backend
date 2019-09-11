@@ -9,6 +9,7 @@ gunicorn = "*"
 feedparser = "*"
 Flask-Cors = "*"
 aiohttp-cors = "*"
+hypercorn = "*"
 
 [dev-packages]
 
