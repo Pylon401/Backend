@@ -19,6 +19,7 @@ This back end server aggregates information from GitHub, PyPI, and Reddit for co
 ### Packages
 - [**aiohttp_cors**](https://pypi.org/project/aiohttp_cors/) : to allow cross-origin resource sharing to our front end which is deployed on Firebase
 - [**feedparser**](https://pypi.org/project/feedparser/) : to parse RSS/XML feed data
+- [**uvloop**](https://pypi.org/project/uvloop/) : to replace asyncio's default event loop with a faster event loop that utilizes Cython
 
 ## API
 - **/** : a call to the root route will return a JSON object containing results from six API requests to be consumed by a front end

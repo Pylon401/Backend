@@ -1,11 +1,14 @@
 from aiohttp import web, ClientSession
 import aiohttp_cors
+import uvloop
 import feedparser
 
 import asyncio
 import time
 import json
 
+
+asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
 
 __all__ = ["app"]
 
@@ -200,6 +203,7 @@ async def get_github(request):
 # ===
 # APP
 # ===
+
 app = web.Application()
 
 cors = aiohttp_cors.setup(app)

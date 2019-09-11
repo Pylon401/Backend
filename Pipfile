@@ -7,8 +7,8 @@ name = "pypi"
 aiohttp = "*"
 gunicorn = "*"
 feedparser = "*"
-Flask-Cors = "*"
-aiohttp-cors = "*"
+aiohttp_cors = "*"
+uvloop = "*"
 
 [dev-packages]
 
