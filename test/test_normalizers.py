@@ -2,13 +2,13 @@ import asyncio
 import pytest
 import pytest_asyncio.plugin
 from app import api_fetch
-# from api_fetch import normalize_github
+
 
 # pytestmark = pytest.mark.asycnio
 
 @pytest.fixture
 def github_sample():
-    with open('github_sample.txt') as file:
+    with open('test/github_sample.txt') as file:
         contents = file.read()
     return contents
 
@@ -25,5 +25,5 @@ async def test_normalize_github(github_sample):
         }]
     }
 
-    actual = await normalize_github(github_sample)
+    actual = await api_fetch.normalize_github(github_sample)
     assert actual == expected
