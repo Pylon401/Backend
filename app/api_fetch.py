@@ -32,23 +32,21 @@ async def fetch(session, url):
 # NORMALIZERS
 # ===========
 
-async def normalize_reddit_webdev(session, url, category):
+async def normalize_reddit_webdev(response, category):
     """
-    Takes in a ClientSession and a URL string to WebDev Subreddit.
-    Awaits a fetch coroutine, then normalizes the payload.
+    Takes in a response from the webdev subreddit.
+    Parses the entries and normalizes them for our use.
     Returns the normalized entries.
     """
-    print('url start', url)
-    response = json.loads(await fetch(session, url))
-    print('url done', url)
     entries = response['data']['children']
+
     normalized_entries = {
         'source': 'reddit',
         'category': category,
         'data':[]
     }
 
-    for entry in entries:
+    for entry in entries[:10]:
         normalized_entries['data'].append({
             'title': entry['data'].get('title', None),
             'link': entry['data'].get('permalink', None),
@@ -59,9 +57,9 @@ async def normalize_reddit_webdev(session, url, category):
     return normalized_entries[:10]
 
 
-async def normalize_reddit_programmerhumor(session, url, category):
+async def reddit_webdev(session, url, category):
     """
-    Takes in a ClientSession and a URL string to Programmer Humor Subreddit.
+    Takes in a ClientSession and a URL string to WebDev Subreddit.
     Awaits a fetch coroutine, then normalizes the payload.
     Returns the normalized entries.
     """
@@ -69,6 +67,15 @@ async def normalize_reddit_programmerhumor(session, url, category):
     response = json.loads(await fetch(session, url))
     print('url done', url)
 
+    return await normalize_reddit_webdev(response, category)
+
+
+async def normalize_reddit_programmerhumor(response, category):
+    """
+    Takes in a response from the ProgrammerHumor subreddit.
+    Parses the entries and normalizes them for our use.
+    Returns the normalized entries.
+    """
     entries = response['data']['children']
     normalized_entries = {
         'source': 'reddit',
@@ -76,7 +83,7 @@ async def normalize_reddit_programmerhumor(session, url, category):
         'data':[]
     }
 
-    for entry in entries:
+    for entry in entries[:10]:
 
         normalized_entries['data'].append({
             'title': entry['data'].get('title', None),
@@ -88,9 +95,9 @@ async def normalize_reddit_programmerhumor(session, url, category):
     return normalized_entries[:10]
 
 
-async def normalize_reddit_no_image(session, url, category):
+async def reddit_programmerhumor(session, url, category):
     """
-    Takes in a ClientSession and a URL string to Python Subreddit.
+    Takes in a ClientSession and a URL string to Programmer Humor Subreddit.
     Awaits a fetch coroutine, then normalizes the payload.
     Returns the normalized entries.
     """
@@ -98,14 +105,24 @@ async def normalize_reddit_no_image(session, url, category):
     response = json.loads(await fetch(session, url))
     print('url done', url)
 
+    return await normalize_reddit_programmerhumor(response, category)
+    
+
+async def normalize_reddit_no_image(response, category):
+    """
+    Takes in a response from the Reddit API.
+    Parses the entries and normalizes them for our use.
+    Returns the normalized entries.
+    """
     entries = response['data']['children']
+    
     normalized_entries = {
         'source': 'reddit',
         'category': category,
         'data':[]
     }
 
-    for entry in entries:
+    for entry in entries[:10]:
         normalized_entries['data'].append({
             'title': entry['data'].get('title', None),
             'link': entry['data'].get('permalink', None),
@@ -115,15 +132,25 @@ async def normalize_reddit_no_image(session, url, category):
     return normalized_entries[:10]
 
 
-async def normalize_pypi(session, url, category):
+async def reddit_no_image(session, url, category):
     """
-    Takes in a ClientSession and a URL string to PyPI.
+    Takes in a ClientSession and a URL string to Python Subreddit.
     Awaits a fetch coroutine, then normalizes the payload.
     Returns the normalized entries.
     """
     print('url start', url)
-    feed_data = feedparser.parse(await fetch(session, url))
+    response = json.loads(await fetch(session, url))
     print('url done', url)
+
+    return await normalize_reddit_no_image(response, category)
+
+
+async def normalize_pypi(feed_data, category):
+    """
+    Takes in a response from the PyPI API.
+    Parses the entries and normalizes them for our use.
+    Returns the normalized entries.
+    """
     entries = feed_data.entries
 
     normalized_entries = {
@@ -132,7 +159,7 @@ async def normalize_pypi(session, url, category):
         'data':[]
     }
 
-    for entry in entries:
+    for entry in entries[:10]:
         normalized_entries['data'].append({
             'source': 'pypi',
             'category': category,
@@ -144,15 +171,25 @@ async def normalize_pypi(session, url, category):
     return normalized_entries[:10]
 
 
-async def normalize_github(session, url, category):
+async def pypi(session, url, category):
     """
-    Takes in a ClientSession and a URL string to GitHub.
+    Takes in a ClientSession and a URL string to PyPI.
     Awaits a fetch coroutine, then normalizes the payload.
     Returns the normalized entries.
     """
     print('url start', url)
-    response = json.loads(await fetch(session, url))
+    feed_data = feedparser.parse(await fetch(session, url))
     print('url done', url)
+
+    return await normalize_pypi(feed_data, category)
+
+
+async def normalize_github(response, category):
+    """
+    Takes in a response from the GitHub API.
+    Parses the entries and normalizes them for our use.
+    Returns the normalized entries.
+    """
     entries = response['items']
     
     normalized_entries = {
@@ -161,7 +198,7 @@ async def normalize_github(session, url, category):
         'data':[]
     }
 
-    for entry in entries:
+    for entry in entries[:10]:
         normalized_entries['data'].append({
             'source': 'github',
             'category': category,
@@ -174,23 +211,37 @@ async def normalize_github(session, url, category):
     return normalized_entries[:10] 
 
 
+async def github(session, url, category):
+    """
+    Takes in a ClientSession and a URL string to GitHub.
+    Awaits a fetch coroutine, then normalizes the payload.
+    Returns the normalized entries.
+    """
+    print('url start', url)
+    response = json.loads(await fetch(session, url))
+    print('url done', url)
+    
+
+    return await normalize_github(response, category)
+
+
 # ======
 # ROUTES
 # ======
 
-async def get_github(request):
+async def gather_data(request):
     start_time = time.perf_counter()
     entries = []
 
     async with ClientSession() as session:
-        entries.append(normalize_github(session, 'https://api.github.com/search/repositories?q=language:python&sort=stars&order=desc', 'popular'))
-        entries.append(normalize_github(session, 'https://api.github.com/search/repositories?q=language:python&sort=updated&order=desc', 'updated'))
-        entries.append(normalize_reddit_webdev(session, 'https://www.reddit.com/r/webdev/.json?', 'webdev'))
-        entries.append(normalize_reddit_programmerhumor(session, 'https://www.reddit.com/r/programmerhumor/.json?', 'programmerhumor'))
-        entries.append(normalize_reddit_no_image(session, 'https://www.reddit.com/r/python/.json?', 'python'))
-        entries.append(normalize_reddit_no_image(session, 'https://www.reddit.com/r/learnprogramming/.json?', 'learnprogramming'))
-        entries.append(normalize_pypi(session, 'https://pypi.org/rss/updates.xml', 'updated'))
-        entries.append(normalize_pypi(session, 'https://pypi.org/rss/packages.xml', 'newest'))
+        entries.append(github(session, 'https://api.github.com/search/repositories?q=language:python&sort=stars&order=desc', 'popular'))
+        entries.append(github(session, 'https://api.github.com/search/repositories?q=language:python&sort=updated&order=desc', 'updated'))
+        entries.append(reddit_webdev(session, 'https://www.reddit.com/r/webdev/.json?', 'webdev'))
+        entries.append(reddit_programmerhumor(session, 'https://www.reddit.com/r/programmerhumor/.json?', 'programmerhumor'))
+        entries.append(reddit_no_image(session, 'https://www.reddit.com/r/python/.json?', 'python'))
+        entries.append(reddit_no_image(session, 'https://www.reddit.com/r/learnprogramming/.json?', 'learnprogramming'))
+        entries.append(pypi(session, 'https://pypi.org/rss/updates.xml', 'updated'))
+        entries.append(pypi(session, 'https://pypi.org/rss/packages.xml', 'newest'))
 
         results = await asyncio.gather(*entries)
     
@@ -213,7 +264,7 @@ cors = aiohttp_cors.setup(app)
 
 resource = cors.add(app.router.add_resource("/"))
 
-cors.add(resource.add_route("GET", get_github), {
+cors.add(resource.add_route("GET", gather_data), {
     "*":
         aiohttp_cors.ResourceOptions(allow_credentials=False),
     "http://client.example.org":
