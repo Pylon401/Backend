@@ -168,7 +168,7 @@ async def normalize_github(session, url, category):
             'stars': entry['stargazers_count']
         })
 
-    return normalized_entries[:10]
+    return normalized_entries[:10] 
 
 
 # ======
