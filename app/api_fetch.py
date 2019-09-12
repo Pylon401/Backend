@@ -53,6 +53,7 @@ async def normalize_reddit_webdev(session, url, category):
             'title': entry['data'].get('title', None),
             'link': entry['data'].get('permalink', None),
             'thumbnail': entry['data'].get('thumbnail', None),
+            'ups': entry['data'].get('ups', None),
         })
 
     return normalized_entries
@@ -81,6 +82,7 @@ async def normalize_reddit_programmerhumor(session, url, category):
             'title': entry['data'].get('title', None),
             'link': entry['data'].get('permalink', None),
             'image': entry['data'].get('url', None),
+            'ups': entry['data'].get('ups', None),
         })
 
     return normalized_entries
@@ -107,6 +109,7 @@ async def normalize_reddit_no_image(session, url, category):
         normalized_entries['data'].append({
             'title': entry['data'].get('title', None),
             'link': entry['data'].get('permalink', None),
+            'ups': entry['data'].get('ups', None),
         })
 
     return normalized_entries
