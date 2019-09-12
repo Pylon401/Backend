@@ -119,8 +119,6 @@ def test_normalize_github(github_sample):
         'source': 'github',
         'category': 'popular',
         'data':[{
-            'source': 'github',
-            'category': 'popular',
             "title":"system-design-primer",
             "link": "https://github.com/donnemartin/system-design-primer",
             "desc": "Learn how to design large-scale systems. Prep for the system design interview.  Includes Anki flashcards.",
@@ -138,8 +136,6 @@ def test_normalize_pypi(pypi_sample):
         'category': 'updated',
         'data': [
             {
-                'source': 'pypi',
-                'category': 'updated',
                 'title': 'confidant 5.0.1',
                 'link': 'https://pypi.org/project/confidant/5.0.1/',
                 'desc': 'A secret management system and client.'
