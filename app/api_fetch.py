@@ -46,7 +46,7 @@ async def normalize_reddit_webdev(response, category):
         'data':[]
     }
 
-    for entry in entries:
+    for entry in entries[:10]:
         normalized_entries['data'].append({
             'title': entry['data'].get('title', None),
             'link': entry['data'].get('permalink', None),
@@ -83,7 +83,7 @@ async def normalize_reddit_programmerhumor(response, category):
         'data':[]
     }
 
-    for entry in entries:
+    for entry in entries[:10]:
 
         normalized_entries['data'].append({
             'title': entry['data'].get('title', None),
@@ -122,7 +122,7 @@ async def normalize_reddit_no_image(response, category):
         'data':[]
     }
 
-    for entry in entries:
+    for entry in entries[:10]:
         normalized_entries['data'].append({
             'title': entry['data'].get('title', None),
             'link': entry['data'].get('permalink', None),
@@ -159,7 +159,7 @@ async def normalize_pypi(feed_data, category):
         'data':[]
     }
 
-    for entry in entries:
+    for entry in entries[:10]:
         normalized_entries['data'].append({
             'source': 'pypi',
             'category': category,
@@ -198,7 +198,7 @@ async def normalize_github(response, category):
         'data':[]
     }
 
-    for entry in entries:
+    for entry in entries[:10]:
         normalized_entries['data'].append({
             'source': 'github',
             'category': category,
