@@ -1,0 +1,335 @@
+{
+    "kind": "Listing",
+    "data": {
+        "modhash": "h0wwoytohl81422b021a13f8776f91bc2844137de2193298b6",
+        "dist": 50,
+        "children": [
+            {
+                "kind": "t3",
+                "data": {
+                    "approved_at_utc": null,
+                    "subreddit": "webdev",
+                    "selftext": "",
+                    "author_fullname": "t2_ggta3",
+                    "saved": false,
+                    "mod_reason_title": null,
+                    "gilded": 0,
+                    "clicked": false,
+                    "title": "This video shows the most popular programming languages on Stack Overflow since September 2008",
+                    "link_flair_richtext": [],
+                    "subreddit_name_prefixed": "r/webdev",
+                    "hidden": false,
+                    "pwls": 6,
+                    "link_flair_css_class": null,
+                    "downs": 0,
+                    "thumbnail_height": 78,
+                    "hide_score": false,
+                    "name": "t3_d30k6s",
+                    "quarantine": false,
+                    "link_flair_text_color": "dark",
+                    "author_flair_background_color": null,
+                    "subreddit_type": "public",
+                    "ups": 931,
+                    "total_awards_received": 0,
+                    "media_embed": {},
+                    "thumbnail_width": 140,
+                    "author_flair_template_id": null,
+                    "is_original_content": false,
+                    "user_reports": [],
+                    "secure_media": null,
+                    "is_reddit_media_domain": true,
+                    "is_meta": false,
+                    "category": null,
+                    "secure_media_embed": {},
+                    "link_flair_text": null,
+                    "can_mod_post": false,
+                    "score": 931,
+                    "approved_by": null,
+                    "thumbnail": "https://a.thumbs.redditmedia.com/odFWirrXKbYp38Dm2lxw-fj3Q3a_aPuKlLS97phWx50.jpg",
+                    "edited": false,
+                    "author_flair_css_class": null,
+                    "steward_reports": [],
+                    "author_flair_richtext": [],
+                    "gildings": {},
+                    "post_hint": "link",
+                    "content_categories": null,
+                    "is_self": false,
+                    "mod_note": null,
+                    "crosspost_parent_list": [
+                        {
+                            "approved_at_utc": null,
+                            "subreddit": "programming",
+                            "selftext": "",
+                            "author_fullname": "t2_43ui73uu",
+                            "saved": false,
+                            "mod_reason_title": null,
+                            "gilded": 0,
+                            "clicked": false,
+                            "title": "This video shows the most popular programming languages on Stack Overflow since September 2008",
+                            "link_flair_richtext": [],
+                            "subreddit_name_prefixed": "r/programming",
+                            "hidden": false,
+                            "pwls": 6,
+                            "link_flair_css_class": null,
+                            "downs": 0,
+                            "thumbnail_height": 78,
+                            "hide_score": false,
+                            "name": "t3_d2qrx6",
+                            "quarantine": false,
+                            "link_flair_text_color": "dark",
+                            "author_flair_background_color": null,
+                            "subreddit_type": "public",
+                            "ups": 5698,
+                            "total_awards_received": 0,
+                            "media_embed": {},
+                            "thumbnail_width": 140,
+                            "author_flair_template_id": null,
+                            "is_original_content": false,
+                            "user_reports": [],
+                            "secure_media": {
+                                "reddit_video": {
+                                    "fallback_url": "https://v.redd.it/ugbxngs91zl31/DASH_1080?source=fallback",
+                                    "height": 1080,
+                                    "width": 1920,
+                                    "scrubber_media_url": "https://v.redd.it/ugbxngs91zl31/DASH_96",
+                                    "dash_url": "https://v.redd.it/ugbxngs91zl31/DASHPlaylist.mpd",
+                                    "duration": 88,
+                                    "hls_url": "https://v.redd.it/ugbxngs91zl31/HLSPlaylist.m3u8",
+                                    "is_gif": false,
+                                    "transcoding_status": "completed"
+                                }
+                            },
+                            "is_reddit_media_domain": true,
+                            "is_meta": false,
+                            "category": null,
+                            "secure_media_embed": {},
+                            "link_flair_text": null,
+                            "can_mod_post": false,
+                            "score": 5698,
+                            "approved_by": null,
+                            "thumbnail": "default",
+                            "edited": false,
+                            "author_flair_css_class": null,
+                            "steward_reports": [],
+                            "author_flair_richtext": [],
+                            "gildings": {},
+                            "post_hint": "hosted:video",
+                            "content_categories": null,
+                            "is_self": false,
+                            "mod_note": null,
+                            "created": 1568239851,
+                            "link_flair_type": "text",
+                            "wls": 6,
+                            "banned_by": null,
+                            "author_flair_type": "text",
+                            "domain": "v.redd.it",
+                            "allow_live_comments": true,
+                            "selftext_html": null,
+                            "likes": null,
+                            "suggested_sort": null,
+                            "banned_at_utc": null,
+                            "view_count": null,
+                            "archived": false,
+                            "no_follow": false,
+                            "is_crosspostable": true,
+                            "pinned": false,
+                            "over_18": false,
+                            "preview": {
+                                "images": [
+                                    {
+                                        "source": {
+                                            "url": "https://external-preview.redd.it/L_jnvso4hSwd-QP80MX_a6PLPiln-ruIEsy05w7i7Do.png?format=pjpg&amp;auto=webp&amp;s=ea28b5005ee02557eaf164ca3f6dc3c183394ab9",
+                                            "width": 1920,
+                                            "height": 1080
+                                        },
+                                        "resolutions": [
+                                            {
+                                                "url": "https://external-preview.redd.it/L_jnvso4hSwd-QP80MX_a6PLPiln-ruIEsy05w7i7Do.png?width=108&amp;crop=smart&amp;format=pjpg&amp;auto=webp&amp;s=fce6f6f6c22ad3edae4dd61c7b5bbaaf8242799f",
+                                                "width": 108,
+                                                "height": 60
+                                            },
+                                            {
+                                                "url": "https://external-preview.redd.it/L_jnvso4hSwd-QP80MX_a6PLPiln-ruIEsy05w7i7Do.png?width=216&amp;crop=smart&amp;format=pjpg&amp;auto=webp&amp;s=87af520817cc0cd5d8091725bdf20596a47d09eb",
+                                                "width": 216,
+                                                "height": 121
+                                            },
+                                            {
+                                                "url": "https://external-preview.redd.it/L_jnvso4hSwd-QP80MX_a6PLPiln-ruIEsy05w7i7Do.png?width=320&amp;crop=smart&amp;format=pjpg&amp;auto=webp&amp;s=87b471fe11d9583eabb330686c75f4e044d7bf71",
+                                                "width": 320,
+                                                "height": 180
+                                            },
+                                            {
+                                                "url": "https://external-preview.redd.it/L_jnvso4hSwd-QP80MX_a6PLPiln-ruIEsy05w7i7Do.png?width=640&amp;crop=smart&amp;format=pjpg&amp;auto=webp&amp;s=002a043cf75e698c96217aa26c56a9853a5e4e90",
+                                                "width": 640,
+                                                "height": 360
+                                            },
+                                            {
+                                                "url": "https://external-preview.redd.it/L_jnvso4hSwd-QP80MX_a6PLPiln-ruIEsy05w7i7Do.png?width=960&amp;crop=smart&amp;format=pjpg&amp;auto=webp&amp;s=3dd40020fd1ed8f831fb474eb9c9c3e7605f08df",
+                                                "width": 960,
+                                                "height": 540
+                                            },
+                                            {
+                                                "url": "https://external-preview.redd.it/L_jnvso4hSwd-QP80MX_a6PLPiln-ruIEsy05w7i7Do.png?width=1080&amp;crop=smart&amp;format=pjpg&amp;auto=webp&amp;s=2e759153705855523ae18f2abb4af1608e089925",
+                                                "width": 1080,
+                                                "height": 607
+                                            }
+                                        ],
+                                        "variants": {},
+                                        "id": "kNulDPPj_TZeU5nbNAgLlRadbT9Ln6xq5dIeVTZRXOE"
+                                    }
+                                ],
+                                "enabled": false
+                            },
+                            "all_awardings": [],
+                            "media_only": false,
+                            "can_gild": true,
+                            "spoiler": false,
+                            "locked": false,
+                            "author_flair_text": null,
+                            "visited": false,
+                            "num_reports": null,
+                            "distinguished": null,
+                            "subreddit_id": "t5_2fwo",
+                            "mod_reason_by": null,
+                            "removal_reason": null,
+                            "link_flair_background_color": "",
+                            "id": "d2qrx6",
+                            "is_robot_indexable": true,
+                            "report_reasons": null,
+                            "author": "qaops",
+                            "num_crossposts": 3,
+                            "num_comments": 577,
+                            "send_replies": true,
+                            "whitelist_status": "all_ads",
+                            "contest_mode": false,
+                            "mod_reports": [],
+                            "author_patreon_flair": false,
+                            "author_flair_text_color": null,
+                            "permalink": "/r/programming/comments/d2qrx6/this_video_shows_the_most_popular_programming/",
+                            "parent_whitelist_status": "all_ads",
+                            "stickied": false,
+                            "url": "https://v.redd.it/ugbxngs91zl31",
+                            "subreddit_subscribers": 2259743,
+                            "created_utc": 1568211051,
+                            "discussion_type": null,
+                            "media": {
+                                "reddit_video": {
+                                    "fallback_url": "https://v.redd.it/ugbxngs91zl31/DASH_1080?source=fallback",
+                                    "height": 1080,
+                                    "width": 1920,
+                                    "scrubber_media_url": "https://v.redd.it/ugbxngs91zl31/DASH_96",
+                                    "dash_url": "https://v.redd.it/ugbxngs91zl31/DASHPlaylist.mpd",
+                                    "duration": 88,
+                                    "hls_url": "https://v.redd.it/ugbxngs91zl31/HLSPlaylist.m3u8",
+                                    "is_gif": false,
+                                    "transcoding_status": "completed"
+                                }
+                            },
+                            "is_video": true
+                        }
+                    ],
+                    "created": 1568280389,
+                    "link_flair_type": "text",
+                    "wls": 6,
+                    "banned_by": null,
+                    "author_flair_type": "text",
+                    "domain": "v.redd.it",
+                    "allow_live_comments": false,
+                    "selftext_html": null,
+                    "likes": null,
+                    "suggested_sort": null,
+                    "banned_at_utc": null,
+                    "view_count": null,
+                    "archived": false,
+                    "no_follow": false,
+                    "is_crosspostable": true,
+                    "pinned": false,
+                    "over_18": false,
+                    "preview": {
+                        "images": [
+                            {
+                                "source": {
+                                    "url": "https://external-preview.redd.it/L_jnvso4hSwd-QP80MX_a6PLPiln-ruIEsy05w7i7Do.png?auto=webp&amp;s=1e247d14bef1a00f0699f300d9b1aadefb030e16",
+                                    "width": 1920,
+                                    "height": 1080
+                                },
+                                "resolutions": [
+                                    {
+                                        "url": "https://external-preview.redd.it/L_jnvso4hSwd-QP80MX_a6PLPiln-ruIEsy05w7i7Do.png?width=108&amp;crop=smart&amp;auto=webp&amp;s=f72d9c4fecdd922b17cd821b9d9ee61884c89155",
+                                        "width": 108,
+                                        "height": 60
+                                    },
+                                    {
+                                        "url": "https://external-preview.redd.it/L_jnvso4hSwd-QP80MX_a6PLPiln-ruIEsy05w7i7Do.png?width=216&amp;crop=smart&amp;auto=webp&amp;s=2b697cae8b84f9030f342a5225e8763f5b80aad3",
+                                        "width": 216,
+                                        "height": 121
+                                    },
+                                    {
+                                        "url": "https://external-preview.redd.it/L_jnvso4hSwd-QP80MX_a6PLPiln-ruIEsy05w7i7Do.png?width=320&amp;crop=smart&amp;auto=webp&amp;s=7349d8163ec7ba497039d8aa6087f6d996faf1e4",
+                                        "width": 320,
+                                        "height": 180
+                                    },
+                                    {
+                                        "url": "https://external-preview.redd.it/L_jnvso4hSwd-QP80MX_a6PLPiln-ruIEsy05w7i7Do.png?width=640&amp;crop=smart&amp;auto=webp&amp;s=01cfaf8cb4b77eaa201a2831304a26a6f54c1b56",
+                                        "width": 640,
+                                        "height": 360
+                                    },
+                                    {
+                                        "url": "https://external-preview.redd.it/L_jnvso4hSwd-QP80MX_a6PLPiln-ruIEsy05w7i7Do.png?width=960&amp;crop=smart&amp;auto=webp&amp;s=41df055154731ec10a51ec0c1f9c2f96e2553849",
+                                        "width": 960,
+                                        "height": 540
+                                    },
+                                    {
+                                        "url": "https://external-preview.redd.it/L_jnvso4hSwd-QP80MX_a6PLPiln-ruIEsy05w7i7Do.png?width=1080&amp;crop=smart&amp;auto=webp&amp;s=8c1175c6864da5c82851e5feedbf249e25af2b61",
+                                        "width": 1080,
+                                        "height": 607
+                                    }
+                                ],
+                                "variants": {},
+                                "id": "kNulDPPj_TZeU5nbNAgLlRadbT9Ln6xq5dIeVTZRXOE"
+                            }
+                        ],
+                        "enabled": false
+                    },
+                    "all_awardings": [],
+                    "media_only": false,
+                    "can_gild": true,
+                    "spoiler": false,
+                    "locked": false,
+                    "author_flair_text": null,
+                    "visited": false,
+                    "num_reports": null,
+                    "distinguished": null,
+                    "subreddit_id": "t5_2qs0q",
+                    "mod_reason_by": null,
+                    "removal_reason": null,
+                    "link_flair_background_color": "",
+                    "id": "d30k6s",
+                    "is_robot_indexable": true,
+                    "stickied": false,
+                    "author": "audiodev",
+                    "num_crossposts": 0,
+                    "num_comments": 205,
+                    "send_replies": true,
+                    "whitelist_status": "all_ads",
+                    "contest_mode": false,
+                    "mod_reports": [],
+                    "author_patreon_flair": false,
+                    "crosspost_parent": "t3_d2qrx6",
+                    "author_flair_text_color": null,
+                    "permalink": "/r/webdev/comments/d30k6s/this_video_shows_the_most_popular_programming/",
+                    "parent_whitelist_status": "all_ads",
+                    "report_reasons": null,
+                    "url": "https://v.redd.it/ugbxngs91zl31",
+                    "subreddit_subscribers": 375275,
+                    "created_utc": 1568251589,
+                    "discussion_type": null,
+                    "media": null,
+                    "is_video": false
+                }
+            }
+        ],
+        "after": "t3_d308fp",
+        "before": null
+    }
+}
