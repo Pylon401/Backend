@@ -161,8 +161,6 @@ async def normalize_pypi(feed_data, category):
 
     for entry in entries[:10]:
         normalized_entries['data'].append({
-            'source': 'pypi',
-            'category': category,
             'title': entry['title'],
             'link': entry['link'],
             'desc': entry['summary']
@@ -200,8 +198,6 @@ async def normalize_github(response, category):
 
     for entry in entries[:10]:
         normalized_entries['data'].append({
-            'source': 'github',
-            'category': category,
             'title': entry['name'],
             'link': entry['html_url'],
             'desc': entry['description'],
