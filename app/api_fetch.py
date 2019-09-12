@@ -75,7 +75,7 @@ async def normalize_reddit_programmerhumor(session, url, category):
         'data':[]
     }
 
-    for entry in entries:
+    for entry in entries[:10]:
 
         normalized_entries['data'].append({
             'title': entry['data'].get('title', None),
@@ -83,7 +83,7 @@ async def normalize_reddit_programmerhumor(session, url, category):
             'image': entry['data'].get('url', None),
         })
 
-    return normalized_entries[:10]
+    return normalized_entries
 
 
 async def normalize_reddit_no_image(session, url, category):
@@ -103,13 +103,13 @@ async def normalize_reddit_no_image(session, url, category):
         'data':[]
     }
 
-    for entry in entries:
+    for entry in entries[:10]:
         normalized_entries['data'].append({
             'title': entry['data'].get('title', None),
             'link': entry['data'].get('permalink', None),
         })
 
-    return normalized_entries[:10]
+    return normalized_entries
 
 
 async def normalize_pypi(session, url, category):
@@ -129,7 +129,7 @@ async def normalize_pypi(session, url, category):
         'data':[]
     }
 
-    for entry in entries:
+    for entry in entries[:10]:
         normalized_entries['data'].append({
             'source': 'pypi',
             'category': category,
@@ -138,7 +138,7 @@ async def normalize_pypi(session, url, category):
             'desc': entry['summary']
         })
 
-    return normalized_entries[:10]
+    return normalized_entries
 
 
 async def normalize_github(session, url, category):
@@ -158,7 +158,7 @@ async def normalize_github(session, url, category):
         'data':[]
     }
 
-    for entry in entries:
+    for entry in entries[:10]:
         normalized_entries['data'].append({
             'source': 'github',
             'category': category,
@@ -168,7 +168,7 @@ async def normalize_github(session, url, category):
             'stars': entry['stargazers_count']
         })
 
-    return normalized_entries[:10] 
+    return normalized_entries
 
 
 # ======
