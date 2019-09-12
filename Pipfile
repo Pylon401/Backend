@@ -9,6 +9,7 @@ gunicorn = "*"
 feedparser = "*"
 aiohttp_cors = "*"
 uvloop = "*"
+pytest = "*"
 
 [dev-packages]
 

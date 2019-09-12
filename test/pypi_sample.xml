@@ -1,0 +1,14 @@
+<rss version="0.91">
+    <channel>
+    <title>PyPI recent updates</title>
+    <link>https://pypi.org/</link>
+    <description>Recent updates to the Python Package Index</description>
+    <language>en</language>
+        <item>
+            <title>confidant 5.0.1</title>
+            <link>https://pypi.org/project/confidant/5.0.1/</link>
+            <description>A secret management system and client.</description>
+            <pubDate>Thu, 12 Sep 2019 19:44:40 GMT</pubDate>
+        </item>
+    </channel>
+</rss>
