@@ -4,6 +4,8 @@
 
 **Version**: 1.3.0
 
+[![CircleCI](https://circleci.com/gh/Pynterest/backend/tree/master.svg?style=svg)](https://circleci.com/gh/Pynterest/backend/tree/master)
+
 ## Overview
 This back end server aggregates information from GitHub, PyPI, and Reddit for consumption by the [Pynterest front end](https://pynterest-58401.firebaseapp.com/).
 
@@ -34,3 +36,7 @@ This back end server aggregates information from GitHub, PyPI, and Reddit for co
 09-11-2019 - 1.3.0
 - Deployed to [Heroku](https://pyn-terest.herokuapp.com/)
 - Added CORS functionality
+
+09-12-2019 - 1.4.0
+- Added testing
+- Added CircleCI integration
