@@ -56,7 +56,7 @@ async def normalize_reddit_webdev(session, url, category):
             'ups': entry['data'].get('ups', None),
         })
 
-    return normalized_entries
+    return normalized_entries[:10]
 
 
 async def normalize_reddit_programmerhumor(session, url, category):
@@ -85,7 +85,7 @@ async def normalize_reddit_programmerhumor(session, url, category):
             'ups': entry['data'].get('ups', None),
         })
 
-    return normalized_entries
+    return normalized_entries[:10]
 
 
 async def normalize_reddit_no_image(session, url, category):
@@ -112,7 +112,7 @@ async def normalize_reddit_no_image(session, url, category):
             'ups': entry['data'].get('ups', None),
         })
 
-    return normalized_entries
+    return normalized_entries[:10]
 
 
 async def normalize_pypi(session, url, category):
@@ -141,7 +141,7 @@ async def normalize_pypi(session, url, category):
             'desc': entry['summary']
         })
 
-    return normalized_entries
+    return normalized_entries[:10]
 
 
 async def normalize_github(session, url, category):
@@ -171,7 +171,7 @@ async def normalize_github(session, url, category):
             'stars': entry['stargazers_count']
         })
 
-    return normalized_entries
+    return normalized_entries[:10] 
 
 
 # ======
