@@ -7,7 +7,7 @@
 [![CircleCI](https://circleci.com/gh/Pynterest/backend/tree/master.svg?style=svg)](https://circleci.com/gh/Pynterest/backend/tree/master)
 
 ## Overview
-This back end server aggregates information from GitHub, PyPI, and Reddit for consumption by the [Pynterest front end](https://pynterest-58401.firebaseapp.com/).
+This back end server aggregates information from GitHub, PyPI, and Reddit for consumption by the [Pynterest front end](https://pynterest.firebaseapp.com/).
 
 ## Architecture
 ### Frameworks
